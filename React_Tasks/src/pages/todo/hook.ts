@@ -3,7 +3,7 @@ import { Errors, initialErrors, initialTask, Task } from "../../models/Tasks";
 import { toast } from "react-toastify";
 
 const HookTask = () => {
-/* Declaracion de estados */
+  /* Declaracion de estados */
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [taskState, setTaskState] = useState<string>("1");
   const [task, setTask] = useState<Task>(initialTask);
@@ -15,7 +15,7 @@ const HookTask = () => {
   const [errors, setErrors] = useState<Errors>(initialErrors);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-// Funcion para el filtrado de las tareas, busquedas por texto y estado //
+  // Funcion para el filtrado de las tareas, busquedas por texto y estado //
   const filterFunction = (search?: string) => {
     let filtered = [...tasks];
 
@@ -43,7 +43,7 @@ const HookTask = () => {
     setFilteredTasks(filtered);
   };
 
-// Carga inicial de las tareas desde localStorage //
+  // Carga inicial de las tareas desde localStorage //
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     setTasks(storedTasks ? JSON.parse(storedTasks) : []);
@@ -71,25 +71,25 @@ const HookTask = () => {
 
   // Funcion para validar los campos, que no este vacios //
   const validarCampos = (newTask: Task) => {
-    if(!newTask.title){
-        errors.title = "Debe agregar un titulo a la tarea!"
-    }else{
-        errors.title = ""
+    if (!newTask.title) {
+      errors.title = "Debe agregar un titulo a la tarea!";
+    } else {
+      errors.title = "";
     }
 
-    if(!newTask.description){
-        errors.description = "Debe agregar una descripción a la tarea!"
-    }else{
-        errors.description = ""
+    if (!newTask.description) {
+      errors.description = "Debe agregar una descripción a la tarea!";
+    } else {
+      errors.description = "";
     }
 
-    if(errors.description || errors.title){
-        setErrors(errors)
-        return false;
-    }else{
-        return true;
+    if (errors.description || errors.title) {
+      setErrors(errors);
+      return false;
+    } else {
+      return true;
     }
-  }
+  };
 
   // Añade una tarea
   const handleAddTask = (newTask: Omit<Task, "id">) => {
@@ -101,8 +101,8 @@ const HookTask = () => {
       setTask(initialTask);
       toast.success("Tarea agregada!");
       setIsModalOpen(false);
-    }else{
-        toast.error("Verifique sus campos!")
+    } else {
+      toast.error("Verifique sus campos!");
     }
   };
 
@@ -116,8 +116,8 @@ const HookTask = () => {
       )
     );
     updatedTask.completed
-      ? toast.success("Tarea completada!")
-      : toast.info("Tarea pendiente!");
+      ? toast.info("Tarea pendiente!")
+      : toast.success("Tarea completada!");
   };
 
   // Elimina una tarea //
